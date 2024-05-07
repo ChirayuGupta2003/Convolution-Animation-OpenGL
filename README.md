@@ -67,7 +67,7 @@ This project uses Modern OpenGL and is inspired by various resources and tutoria
 
 ### License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License.
 
 ### Author
 
