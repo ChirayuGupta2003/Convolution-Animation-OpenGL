@@ -4,6 +4,9 @@ project(convolution_animation VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
+set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_C_COMPILER "gcc")
+
 find_package(glfw3 REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
