@@ -11,11 +11,17 @@ int main()
     int gridSize = 25;
     int padding = 0, kSize = 3, stride = 1;
 
-    std::vector<int> verticalEdgeKernel = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
-    std::vector<int> horizontalEdgeKernel = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
+    // Kernels in Row major order
+    std::vector<int> prewittVerticalEdgeKernel = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
+    std::vector<int> prewittHorizontalEdgeKernel = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
 
-    std::vector<int> data = queen;
-    std::vector<int> kernel = verticalEdgeKernel;
+    std::vector<int> sobelVerticalEdgeKernel = {-1, 0, 1, -2, 0, 2, -1, 0, 1};
+    std::vector<int> sobelHorizontalEdgeKernel = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
+
+    std::vector<int> laplacianKernel = {0, 1, 0, 1, -4, 1, 0, 1, 0};
+
+    std::vector<int> data = pawn;
+    std::vector<int> kernel = prewittVerticalEdgeKernel;
 
     std::vector<int> paddedData = {};
 

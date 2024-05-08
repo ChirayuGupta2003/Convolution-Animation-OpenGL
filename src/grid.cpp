@@ -2,6 +2,7 @@
 #include <line.h>
 #include <glad/glad.h>
 #include <rectangle.h>
+#include <math.h>
 
 Grid::Grid(int dim, bool lines, bool isLeft, std::vector<int> &data, int padding) : dim(dim), padding(padding), lines(lines), data(data), isLeft(isLeft), Shape(false)
 {
@@ -102,7 +103,7 @@ int Grid::convolve(int stRow, int stCol, int kSize, std::vector<int> &kernel)
         }
     }
 
-    return sum;
+    return std::max(sum, -sum);
 }
 
 Grid::~Grid() {}
