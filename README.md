@@ -10,7 +10,28 @@ To build and run this project, you need the following dependencies installed on 
 - OpenGL (version 3.3 or later)
 - GLFW (version 3.3 or later)
 - GLAD (OpenGL loader generator)
+- GLM (OpenGL math library)
 - Any C++ compiler with C++11 support
+
+### Installing Requirements
+
+Cmake
+
+```
+sudo apt install cmake
+```
+
+GLFW
+
+```
+sudo apt-get install libglfw3-dev
+```
+
+GLM
+
+```
+sudo apt-get install libglm-dev
+```
 
 ### Building Instructions
 
