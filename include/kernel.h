@@ -3,14 +3,13 @@
 
 #include <shape.h>
 
-
 class Kernel : public Shape
 {
 public:
-    int gridRows, kernelRows, stRow = 0, stCol = 0, padding;
+    int gridRows, kernelRows, stRow = 0, stCol = 0, stride;
     bool isLeft;
 
-    Kernel(int gridRows, int kernelRows, bool isLeft, int padding = 0);
+    Kernel(int gridRows, int kernelRows, bool isLeft, int stride = 1);
 
     void render();
     void step();

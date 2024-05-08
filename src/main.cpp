@@ -9,12 +9,12 @@ int main()
 {
 
     int gridSize = 25;
-    int padding = 0, kSize = 3;
+    int padding = 0, kSize = 3, stride = 1;
 
     std::vector<int> verticalEdgeKernel = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
     std::vector<int> horizontalEdgeKernel = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
 
-    std::vector<int> data = pawn;
+    std::vector<int> data = queen;
     std::vector<int> kernel = verticalEdgeKernel;
 
     std::vector<int> paddedData = {};
@@ -33,7 +33,7 @@ int main()
         }
     }
 
-    Renderer renderer(1920, 1080, gridSize, kernel, (int)sqrt(kernel.size()), paddedData, padding);
+    Renderer renderer(1920, 1080, gridSize, kernel, (int)sqrt(kernel.size()), paddedData, padding, stride);
 
     renderer.run();
 }

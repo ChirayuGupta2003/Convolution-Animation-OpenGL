@@ -13,11 +13,11 @@ private:
     bool initGLFW();
 
 public:
-    int width, height, gridSize, kSize, size, padding;
+    int width, height, gridSize, kSize, size, padding, stride;
 
     std::vector<int> data, kernel;
 
-    Renderer(int width, int height, int gridSize, std::vector<int> kernel, int kSize, std::vector<int> &data, int padding);
+    Renderer(int width, int height, int gridSize, std::vector<int> kernel, int kSize, std::vector<int> &data, int padding, int stride);
     ~Renderer();
 
     void run();

@@ -1,7 +1,7 @@
 #include <kernel.h>
 #include <line.h>
 
-Kernel::Kernel(int gridRows, int kernelRows, bool isLeft, int padding) : gridRows(gridRows), kernelRows(kernelRows), isLeft(isLeft), padding(padding), Shape(false)
+Kernel::Kernel(int gridRows, int kernelRows, bool isLeft, int stride) : gridRows(gridRows), kernelRows(kernelRows), isLeft(isLeft), stride(stride), Shape(false)
 {
     generateVerticesAndIndices();
     setupBuffers();
@@ -49,11 +49,11 @@ void Kernel::step()
     if (stCol >= gridRows - kernelRows)
     {
         stCol = 0;
-        stRow++;
+        stRow += stride;
     }
     else
     {
-        stCol++;
+        stCol += stride;
     }
 
     if (stRow > gridRows - kernelRows)

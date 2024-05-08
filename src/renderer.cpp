@@ -10,7 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <math.h>
 
-Renderer::Renderer(int width, int height, int gridSize, std::vector<int> kernel, int kSize, std::vector<int> &data, int padding = 0) : window(), width(width), height(height), gridSize(gridSize), kernel(kernel), kSize(kSize), data(data), padding(padding) {}
+Renderer::Renderer(int width, int height, int gridSize, std::vector<int> kernel, int kSize, std::vector<int> &data, int padding, int stride) : window(), width(width), height(height), gridSize(gridSize), kernel(kernel), kSize(kSize), data(data), padding(padding), stride(stride) {}
 
 Renderer::~Renderer()
 {
@@ -38,13 +38,13 @@ void Renderer::run()
 
     Grid grid1 = Grid(gridSize + 2 * padding, false, true, data, padding);
 
-    int outDim = (gridSize - kSize + 2 * padding) + 1;
+    int outDim = ((gridSize - kSize + 2 * padding) / stride) + 1;
 
     std::vector<int> grid2Data = {};
 
     Grid grid2 = Grid(outDim, false, false, grid2Data);
 
-    Kernel kernel1(gridSize + 2 * padding, kSize, true, padding);
+    Kernel kernel1(gridSize + 2 * padding, kSize, true, stride);
     Kernel kernel2(outDim, 1, false);
 
     // Desired frame rate
@@ -53,6 +53,11 @@ void Renderer::run()
     double frameNum = 0.0;
 
     glm::mat4 projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height, -1.0f, 1.0f);
+
+    int numSteps = outDim * outDim;
+    int animationDuration = 10; // seconds
+    int stepsPerSecond = numSteps / animationDuration;
+    int framesBetweenSteps = desiredFPS / stepsPerSecond;
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -72,9 +77,6 @@ void Renderer::run()
             std::this_thread::sleep_for(std::chrono::duration<double>(sleepTime));
         }
 
-        // Specify the color of the background
-        // Clean the back buffer and assign the new color to it
-
         shaderProgram.Activate();
 
         int modelLoc = glGetUniformLocation(shaderProgram.ID, "projection");
@@ -83,7 +85,7 @@ void Renderer::run()
 
         frameNum++;
 
-        if (frameNum >= desiredFPS / (outDim * outDim))
+        if (frameNum >= framesBetweenSteps)
         {
             glClear(GL_COLOR_BUFFER_BIT);
 
@@ -100,12 +102,11 @@ void Renderer::run()
             kernel1.render();
             kernel2.render();
             grid2.render();
-            
-            frameNum = 0;
-        }
 
-        // Swap the front and back buffers
-        glfwSwapBuffers(window);
+            frameNum = 0;
+            // Swap the front and back buffers
+            glfwSwapBuffers(window);
+        }
 
         glfwPollEvents();
     }
