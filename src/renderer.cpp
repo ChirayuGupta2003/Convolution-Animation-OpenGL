@@ -10,6 +10,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <math.h>
 
+#include <bits/stdc++.h>
+
 Renderer::Renderer(int width, int height, int gridSize, std::vector<int> kernel, int kSize, std::vector<int> &data, int padding, int stride) : window(), width(width), height(height), gridSize(gridSize), kernel(kernel), kSize(kSize), data(data), padding(padding), stride(stride) {}
 
 Renderer::~Renderer()
@@ -91,17 +93,23 @@ void Renderer::run()
 
             glClearColor(0.9725490196078431f, 0.9764705882352941f, 0.9725490196078431f, 1.0f);
 
-            int val = grid1.convolve(kernel1.stRow, kernel1.stCol, kernel1.kernelRows, kernel);
-
-            grid2.data.push_back(val);
+            if (grid2.data.size() <= (outDim * outDim))
+            {
+                int val = grid1.convolve(kernel1.stRow, kernel1.stCol, kernel1.kernelRows, kernel);
+                grid2.data.push_back(val);
+            }
+            else
+            {
+                break;
+            }
 
             kernel1.step();
             kernel2.step();
 
             grid1.render();
+            grid2.render();
             kernel1.render();
             kernel2.render();
-            grid2.render();
 
             frameNum = 0;
             // Swap the front and back buffers

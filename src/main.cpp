@@ -20,8 +20,8 @@ int main()
 
     std::vector<int> laplacianKernel = {0, 1, 0, 1, -4, 1, 0, 1, 0};
 
-    std::vector<int> data = pawn;
-    std::vector<int> kernel = prewittVerticalEdgeKernel;
+    std::vector<int> data = queen;
+    std::vector<int> kernel = sobelHorizontalEdgeKernel;
 
     std::vector<int> paddedData = {};
 
