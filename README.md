@@ -40,13 +40,13 @@ Follow these steps to build the project using CMake:
 1. Clone the repository to your local machine:
 
 ```
-git clone <repository-url>
+git clone https://github.com/ChirayuGupta2003/Convolution-Animation-OpenGL
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd convolution-animation-opengl
+cd Convolution-Animation-OpenGL
 ```
 
 3. Create a build directory:
